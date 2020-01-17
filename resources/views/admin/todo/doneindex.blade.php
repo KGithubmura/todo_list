@@ -19,7 +19,7 @@
                             <input type="text" class="form-control" name="cond_title" value="{{ $cond_title }}">
                         </div>
                         <div class="col-md-2">
-                            <select name="narabi" value="{{ $narabi }}" href = "{{ action('Admin\TodoController@index') }}" role = "button">
+                            <select name="sort" value="{{ $sort }}" href = "{{ action('Admin\TodoController@index') }}" role = "button">
                                 <option value="">優先度</option>
                                 <option value="asc">低い順</option>
                                 <option value="desc">高い順</option>
@@ -48,7 +48,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($posts as $todo)
+                        @foreach($posts as $todo)
+                            @if($todo->is_complete == 1)
                                 <tr>
                                     <th>{{ $todo->id }}</th>
                                     <td>{{ str_limit($todo->title, 100) }}</td>
@@ -64,11 +65,13 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @endif
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+　　　　　　{{ $posts ->links() }}
     </div>
 @endsection

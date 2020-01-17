@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use App\Todo;
 use Carbon\Carbon;
 
@@ -38,23 +37,24 @@ class TodoController extends Controller
     {   
         $is_complete = 0;
         $cond_title = $request->cond_title;
-        $narabi= $request->narabi;
+        $sort = $request->sort;
+        $posts = Todo::paginate(5);
         
         if ($cond_title != ''){
             $posts = Todo::where('title', $cond_title)->get();
-            } else {
-            $posts = Todo::where('is_complete',$is_complete)->get();
-        }
+            }
+        if ($sort != '') {
+            }if ($sort == 'asc') {
+            $posts = Todo::orderBy('priority' , 'asc')->paginate(5);
+            } elseif($sort == 'desc') {
+            $posts = Todo::orderBy('priority' , 'desc')->paginate(5);
+        } 
+      
         
-        if ($narabi != ''){
-            if ($narabi == 'asc'){
-            $posts = Todo::orderByRaw('priority' , 'asc')->get();
-            } elseif($narabi == 'desc') {
-            $posts = Todo::orderBy('priority', 'desc')->get();
-            } 
-        }
         
-        return view('admin.todo.index', ['posts' => $posts,'cond_title' => $cond_title,'narabi' => $narabi]);
+        //$posts = Todo::paginate(5);
+        
+        return view('admin.todo.index', ['posts' => $posts, 'cond_title' => $cond_title,'sort' => $sort]);
     }
     
     public function edit(Request $request)
@@ -91,24 +91,21 @@ class TodoController extends Controller
     {
         $is_complete = 1;
         $cond_title = $request->cond_title;
+        $sort= $request->sort;
+        $posts = Todo::paginate(5);
+        
         if ($cond_title != ''){
             $posts = Todo::where('title', $cond_title)->get();
-            } else {
-                $posts = Todo::where('is_complete',$is_complete)->get();
-        }
-        
-        $narabi= $request->narabi;
-            if ($narabi != ''){
-               if ($narabi == 'asc'){
-                    $posts=Todo::orderBy('priority', 'asc')->get();
-                    } elseif($narabi == 'desc') {
-                        $posts=Todo::orderBy('priority', 'desc')->get();
-                    } else{
-                        $posts=Todo::all();
-                    }
             }
+        if ($sort != '') {
+            }if ($sort == 'asc') {
+            $posts = Todo::orderBy('priority' , 'asc')->paginate(5);
+            } elseif($sort == 'desc') {
+            $posts = Todo::orderBy('priority' , 'desc')->paginate(5);
+        } 
+         
         
-        return view('admin.todo.doneindex', ['posts' => $posts, 'cond_title' => $cond_title,'narabi' => $narabi]);
+        return view('admin.todo.doneindex', ['posts' => $posts, 'cond_title' => $cond_title,'sort' => $sort]);
     }
     
     public function delete(Request $request)
