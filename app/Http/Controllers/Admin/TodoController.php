@@ -43,21 +43,18 @@ class TodoController extends Controller
         if ($cond_title != ''){
             $posts = Todo::where('title', $cond_title)->get();
             } else {
-                $posts = Todo::where('is_complete',$is_complete)->get();
+            $posts = Todo::where('is_complete',$is_complete)->get();
         }
         
-            if ($narabi != ''){
-               if ($narabi == 'asc'){
-                $posts=Todo::orderBy('priority', 'asc')->get();
-                } elseif($narabi == 'desc') {
-                $posts=Todo::orderBy('priority', 'desc')->get();
-                } else {
-                $posts=Todo::all();
-                }
-            }
+        if ($narabi != ''){
+            if ($narabi == 'asc'){
+            $posts = Todo::orderByRaw('priority' , 'asc')->get();
+            } elseif($narabi == 'desc') {
+            $posts = Todo::orderBy('priority', 'desc')->get();
+            } 
+        }
         
-        return view('admin.todo.index', ['posts' => $posts, 'cond_title' => $cond_title,'narabi' => $narabi]);
-        
+        return view('admin.todo.index', ['posts' => $posts,'cond_title' => $cond_title,'narabi' => $narabi]);
     }
     
     public function edit(Request $request)
