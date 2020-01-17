@@ -148,6 +148,7 @@ return [
     'attributes' => [
         'title' => 'タイトル',
         'deadline_date' => '期限',
+        'priority' => '優先度',
     ],
 
 ];

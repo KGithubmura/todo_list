@@ -23,6 +23,7 @@ class TodoController extends Controller
         $form = $request->all();
         $todo->deadline_date = $form['deadline_date'];
         $todo->nowtime = Carbon::now();
+        $todo->priority = $form['priority'];
         unset($form['_token']);
         
         $todo->is_complete = 0;
@@ -37,13 +38,26 @@ class TodoController extends Controller
     {   
         $is_complete = 0;
         $cond_title = $request->cond_title;
+        $narabi= $request->narabi;
+        
         if ($cond_title != ''){
-            $posts = Todo::where('title', $cond_title)->get();
-        } else {
+        　　$posts = Todo::where('title', $cond_title)->get();
+            } else {
             $posts = Todo::where('is_complete',$is_complete)->get();
         }
         
-        return view('admin.todo.index', ['posts' => $posts, 'cond_title' => $cond_title]);
+        if ($narabi != ''){
+            if ($narabi == 'asc'){
+                $posts=Todo::orderBy('priority', 'asc')->get();
+            　　} elseif($narabi == 'desc') {
+                    $posts=Todo::orderBy('priority', 'desc')->get();
+                } else {
+                    $posts=Todo::all();
+            }
+        }
+        
+        return view('admin.todo.index', ['posts' => $posts, 'cond_title' => $cond_title,'narabi' => $narabi]);
+        
     }
     
     public function edit(Request $request)
@@ -82,11 +96,22 @@ class TodoController extends Controller
         $cond_title = $request->cond_title;
         if ($cond_title != ''){
             $posts = Todo::where('title', $cond_title)->get();
-        } else {
-            $posts = Todo::where('is_complete',$is_complete)->get();
+            } else {
+                $posts = Todo::where('is_complete',$is_complete)->get();
         }
         
-        return view('admin.todo.doneindex', ['posts' => $posts, 'cond_title' => $cond_title]);
+        $narabi= $request->narabi;
+            if ($narabi != ''){
+               if ($narabi == 'asc'){
+                    $posts=Todo::orderBy('priority', 'asc')->get();
+                    } elseif($narabi == 'desc') {
+                        $posts=Todo::orderBy('priority', 'desc')->get();
+                    } else {
+                        $posts=Todo::all();
+            　　}
+            }
+        
+        return view('admin.todo.doneindex', ['posts' => $posts, 'cond_title' => $cond_title,'narabi' => $narabi]);
     }
     
     public function delete(Request $request)
@@ -95,11 +120,12 @@ class TodoController extends Controller
         $todo->delete();
         return redirect('admin/todo/doneindex');
     }
-     public function undone(Request $request)
+    public function undone(Request $request)
      {
-         $todo = Todo::find($request->id);
+        $todo = Todo::find($request->id);
         $todo->is_complete = 0;
         $todo->save();
         return redirect('admin/todo/doneindex');
      }
+     
 }

@@ -15,8 +15,15 @@
                 <form action="{{ action('Admin\TodoController@doneindex') }}" method="get">
                     <div class="form-group row">
                         <label class="col-md-2">タイトル</label>
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <input type="text" class="form-control" name="cond_title" value="{{ $cond_title }}">
+                        </div>
+                        <div class="col-md-2">
+                            <select name="narabi" value="{{ $narabi }}" href = "{{ action('Admin\TodoController@index') }}" role = "button">
+                                <option value="">優先度</option>
+                                <option value="asc">低い順</option>
+                                <option value="desc">高い順</option>
+                            </select>
                         </div>
                         <div class="col-md-2">
                             {{ csrf_field() }}
@@ -36,6 +43,7 @@
                                 <th width="30%">タイトル</th>
                                 <th width='20%'>作成日</th>
                                 <th width='20%'>#期限日</th>
+                                <th width='10%'>優先度</th>
                                 <th width="10%">操作</th>
                             </tr>
                         </thead>
@@ -46,6 +54,7 @@
                                     <td>{{ str_limit($todo->title, 100) }}</td>
                                     <td>{{ str_limit($todo->nowtime) }}</td>
                                     <th>{{ str_limit($todo->deadline_date) }}</th>
+                                    <td>{{ str_limit($todo->priority) }}</td>
                                     <td>
                                         <div>
                                             <a href="{{ action('Admin\TodoController@delete',['id' => $todo->id]) }}">削除</a>

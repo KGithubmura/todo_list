@@ -10,5 +10,6 @@ class Todo extends Model
     public static $rules = array(
         'title' => 'required',
         'deadline_date' => 'required',
+        'priority' => 'required',
     );
 }
