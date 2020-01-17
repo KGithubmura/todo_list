@@ -41,20 +41,20 @@ class TodoController extends Controller
         $narabi= $request->narabi;
         
         if ($cond_title != ''){
-        　　$posts = Todo::where('title', $cond_title)->get();
+            $posts = Todo::where('title', $cond_title)->get();
             } else {
-            $posts = Todo::where('is_complete',$is_complete)->get();
+                $posts = Todo::where('is_complete',$is_complete)->get();
         }
         
-        if ($narabi != ''){
-            if ($narabi == 'asc'){
+            if ($narabi != ''){
+               if ($narabi == 'asc'){
                 $posts=Todo::orderBy('priority', 'asc')->get();
-            　　} elseif($narabi == 'desc') {
-                    $posts=Todo::orderBy('priority', 'desc')->get();
+                } elseif($narabi == 'desc') {
+                $posts=Todo::orderBy('priority', 'desc')->get();
                 } else {
-                    $posts=Todo::all();
+                $posts=Todo::all();
+                }
             }
-        }
         
         return view('admin.todo.index', ['posts' => $posts, 'cond_title' => $cond_title,'narabi' => $narabi]);
         
@@ -106,9 +106,9 @@ class TodoController extends Controller
                     $posts=Todo::orderBy('priority', 'asc')->get();
                     } elseif($narabi == 'desc') {
                         $posts=Todo::orderBy('priority', 'desc')->get();
-                    } else {
+                    } else{
                         $posts=Todo::all();
-            　　}
+                    }
             }
         
         return view('admin.todo.doneindex', ['posts' => $posts, 'cond_title' => $cond_title,'narabi' => $narabi]);
