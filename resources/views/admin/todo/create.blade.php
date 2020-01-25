@@ -15,6 +15,17 @@
               </ul>
             @endif
             <div class="form-group row">
+              <label class="col-md-2">カテゴリー</label>
+              <div class="col-md-10">
+                <select name="category_id">
+                    <option value="">選択してください</option>
+                    @foreach($name as $category)
+                    <option value="{{$category->id}}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-md-2">タイトル</label>
                 <div class="col-md-10">
                     <input type="text" class="form-control" name="title" value="{{ old('title') }}">
@@ -25,6 +36,8 @@
                 <div class="col-md-10">
                 <input type="datetime-local" name="deadline_date" step="300">
                 </div>
+            </div>
+            <div class="form-group row">
             <label class="col-md-2">優先度</label>
                 <div class="col-md-10">
                   <select name="priority">

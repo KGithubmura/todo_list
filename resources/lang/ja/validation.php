@@ -146,6 +146,7 @@ return [
     */
 
     'attributes' => [
+        'category_id' => 'カテゴリー',
         'title' => 'タイトル',
         'deadline_date' => '期限',
         'priority' => '優先度',

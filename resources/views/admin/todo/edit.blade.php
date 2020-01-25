@@ -15,6 +15,16 @@
                             @endforeach
                         </ul>
                     @endif
+                     <div class="form-group row">
+                        <label class="col-md-2">カテゴリー</label>
+                        <div class="col-md-3">
+                            <select name="category_id">
+                              <option value="">選択してください</option>
+                              <option value="1">私用</option>
+                              <option value="2">仕事</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="title">タイトル</label>
                         <div class="col-md-10">
@@ -26,6 +36,8 @@
                         <div class="col-md-10">
                             <input type="text" name="deadline_date" step="300"　value="{{ $todo_form->deadline_date }}">
                         </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-md-2">優先度</label>
                         <div class="col-md-10">
                           <select name="priority">

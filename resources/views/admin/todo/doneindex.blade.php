@@ -40,9 +40,10 @@
                         <thead>
                             <tr>
                                 <th width="10%">ID</th>
-                                <th width="30%">タイトル</th>
-                                <th width='20%'>作成日</th>
-                                <th width='20%'>#期限日</th>
+                                <th width='10%'>カテゴリー</th>
+                                <th width="20%">タイトル</th>
+                                <th width='10%'>作成日</th>
+                                <th width='10%'>#期限日</th>
                                 <th width='10%'>優先度</th>
                                 <th width="10%">操作</th>
                             </tr>

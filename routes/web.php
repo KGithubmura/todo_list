@@ -26,6 +26,11 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function() {
    Route::get('todo/delete', 'Admin\TodoController@delete');
    Route::get('todo/undone', 'Admin\TodoController@undone');
    
+   Route::get('category/categorycreate', 'Admin\TodoController@categoryAdd');
+   Route::post('category/categorycreate', 'Admin\TodoController@categoryCreate');
+   Route::get('category/category', 'Admin\TodoController@category');
+   Route::get('category/categoryDelete', 'Admin\TodoController@categoryDelete');
+   
 });
 
 Auth::routes();

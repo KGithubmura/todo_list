@@ -33,6 +33,20 @@
                 </form>
             </div>
         </div>
+        <label class="col-md-2">カテゴリー</label>
+        <div class="col-md-10">
+          <select name="category_id">
+              <option value="">選択してください</option>
+              @foreach($name as $category)
+              <option value="">{{ $category->name }}</option>
+              @endforeach
+          </select>
+        </div>
+        <div class = "row">
+            <div class = "col-md-12">
+                <a href = "{{ action('Admin\TodoController@category') }}" role = "button" class = "btn btn-primary">カテゴリー一覧へ</a>
+            </div>
+        </div>
         <div class="row">
             <div class="list-todo col-md-12 mx-auto">
                 <div class="row">
@@ -40,9 +54,10 @@
                         <thead>
                             <tr>
                                 <th width="10%">ID</th>
-                                <th width="30%">タイトル</th>
-                                <th width='20%'>作成日</th>
-                                <th width='20%'>#期限日</th>
+                                <th width='10%'>カテゴリー</th>
+                                <th width="20%">タイトル</th>
+                                <th width='10%'>作成日</th>
+                                <th width='10%'>#期限日</th>
                                 <th width='10%'>優先度</th>
                                 <th width="10%">操作</th>
                             </tr>
@@ -53,6 +68,7 @@
                                 @if ($todo->deadline_date < $todo->nowtime )
                                     <tr class = "bg-danger">　
                                         <th>{{ $todo->id }}</th>
+                                        <td>{{ str_limit($todo->category_id) }}</td>
                                         <td>{{ str_limit($todo->title, 100) }}</td>
                                         <td>{{ str_limit($todo->nowtime) }}</td>
                                         <td>{{ str_limit($todo->deadline_date) }}</td>
@@ -69,6 +85,7 @@
                                 @else($todo->deadline_date > $todo->nowtime )
                                    <tr>　
                                         <th>{{ $todo->id }}</th>
+                                        <td>{{ str_limit($todo->category_id) }}</td>
                                         <td>{{ str_limit($todo->title, 100) }}</td>
                                         <td>{{ str_limit($todo->nowtime) }}</td>
                                         <td>{{ str_limit($todo->deadline_date) }}</td>
