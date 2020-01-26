@@ -33,15 +33,7 @@
                 </form>
             </div>
         </div>
-        <label class="col-md-2">カテゴリー</label>
-        <div class="col-md-10">
-          <select name="category_id">
-              <option value="">選択してください</option>
-              @foreach($name as $category)
-              <option value="">{{ $category->name }}</option>
-              @endforeach
-          </select>
-        </div>
+      
         <div class = "row">
             <div class = "col-md-12">
                 <a href = "{{ action('Admin\TodoController@category') }}" role = "button" class = "btn btn-primary">カテゴリー一覧へ</a>

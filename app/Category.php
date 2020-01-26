@@ -13,6 +13,6 @@ class Category extends Model
     
     public function todo()
     {
-        return $this->hasMany('App\Todo','category_id');
+        return $this->hasMany('App\Todo');
     }
 }

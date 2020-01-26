@@ -30,7 +30,8 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function() {
    Route::post('category/categorycreate', 'Admin\TodoController@categoryCreate');
    Route::get('category/category', 'Admin\TodoController@category');
    Route::get('category/categoryDelete', 'Admin\TodoController@categoryDelete');
-   
+   Route::get('category/categoryedit', 'Admin\TodoController@categoryEdit');
+   Route::post('category/categoryedit', 'Admin\TodoController@categoryUpdate');
 });
 
 Auth::routes();

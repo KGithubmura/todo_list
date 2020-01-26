@@ -24,8 +24,8 @@ class TodoController extends Controller
     {
         $user = Auth::user();
         $this->validate($request, Todo::$rules);
-        $todo = Todo::all();
-        $categories = Category::all();
+        $todo = new Todo;
+        $categories = new Category;
         $form = $request->all();
         
         unset($form['_token']);
@@ -40,12 +40,20 @@ class TodoController extends Controller
         $todo->save();
     
         
-        return view('admin.todo.create',['name' => $categories]);
+        return redirect('/admin/todo'); // todos
     }
     
     public function index(Request $request)
     {   
-        $categories = Category::all();
+        $categories =Category::all();
+        
+        
+        /*$todo = Todo::get(["category_id"]);
+        $categories->id = $todo;
+        //dd($categories->id);
+        $A = Category::with('todo:category_id')->get();
+        dd($A);*/
+        
         $is_coplete = 0;
         $cond_title = $request->cond_title;
         $sort = $request->sort;
@@ -56,19 +64,17 @@ class TodoController extends Controller
             $todoQuery->where('title', $cond_title);
         } 
         
-        /*if ($categories != '') {
-            $todoQuery->where('category_id' , $categories);
-        }*/
-        
-        
         if ($sort == 'asc') {
             $todoQuery->orderBy('priority' , 'asc');
         } elseif($sort == 'desc') {
             $todoQuery->orderBy('priority' , 'desc');
         } 
         
+        if ($category_id != ''){
+            $todoQuery->where('category_id', $category_id);
+        } 
+        
         $posts = $todoQuery->paginate(5);
-        //dd($posts);
         return view('admin.todo.index', ['posts' => $posts, 'cond_title' => $cond_title,'sort' => $sort,'name' => $categories]);
     }
     
@@ -167,7 +173,31 @@ class TodoController extends Controller
         return view('admin.category.category', ['categories' => $categories]);
     }
     
-     public function categoryDelete(Request $request)
+    public function categoryEdit(Request $request)
+    {
+        $categories = Category::find($request->id);
+        if (empty($categories)) {
+            abort(404);
+        }
+        return view('admin.category.categoryedit',['category_form' => $categories]);
+    }
+    
+    
+    public function categoryUpdate(Request $request)
+    {
+        $this->validate($request, Category::$rules);
+    
+        $categories = Category::find($request->id);
+        $category_form = $request->all();
+        unset($category_form['_token']);
+        
+        $categories->fill($category_form);
+        $categories->save();
+        
+        return redirect ('admin/category/category');
+    }
+    
+    public function categoryDelete(Request $request)
     {
         $categories = Category::find($request->id);
         $categories->delete();
