@@ -17,7 +17,7 @@
           <div class="row">
           @foreach ($categories as $category)
               <div class="list-category col-md-3 mx-auto my-3">
-                <a href = "{{ action('Admin\TodoController@index')}}" role = "button" class = "btn btn-primary">{{ $category->name }}</a>
+                <a href = "{{ action('Admin\TodoController@index',['id' => $category->id])}}" name="id" role = "button" class = "btn btn-primary">{{ $category->name }}</a>
               </div>
               <td>
                   <div class = "my-3">

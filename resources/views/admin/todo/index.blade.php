@@ -36,7 +36,7 @@
       
         <div class = "row">
             <div class = "col-md-12">
-                <a href = "{{ action('Admin\TodoController@category') }}" role = "button" class = "btn btn-primary">カテゴリー一覧へ</a>
+                <a href = "{{ action('Admin\TodoController@category') }}" role = "button" class = "btn btn-primary">カテゴリーを選ぶ</a>
             </div>
         </div>
         <div class="row">

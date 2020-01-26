@@ -45,19 +45,12 @@ class TodoController extends Controller
     
     public function index(Request $request)
     {   
-        $categories =Category::all();
-        
-        
-        /*$todo = Todo::get(["category_id"]);
-        $categories->id = $todo;
-        //dd($categories->id);
-        $A = Category::with('todo:category_id')->get();
-        dd($A);*/
-        
+        $categories = Category::find($request->id);
         $is_coplete = 0;
+        $id = $categories->id;
         $cond_title = $request->cond_title;
         $sort = $request->sort;
-        $category_id = $request->category_id;
+        //$category_id = $request->category_id;
         $todoQuery = Todo::where('user_id', Auth::id());
         
         if ($cond_title != ''){
@@ -70,12 +63,12 @@ class TodoController extends Controller
             $todoQuery->orderBy('priority' , 'desc');
         } 
         
-        if ($category_id != ''){
-            $todoQuery->where('category_id', $category_id);
+        if ($id != ''){
+            $todoQuery->where('category_id', $id);
         } 
         
         $posts = $todoQuery->paginate(5);
-        return view('admin.todo.index', ['posts' => $posts, 'cond_title' => $cond_title,'sort' => $sort,'name' => $categories]);
+        return view('admin.todo.index', ['posts' => $posts, 'cond_title' => $cond_title,'sort' => $sort,'name' => $categories,'id =>$id']);
     }
     
     public function edit(Request $request)
