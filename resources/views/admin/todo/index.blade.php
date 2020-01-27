@@ -33,10 +33,12 @@
                 </form>
             </div>
         </div>
-      
         <div class = "row">
-            <div class = "col-md-12">
+            <div class = "col-md-10">
                 <a href = "{{ action('Admin\TodoController@category') }}" role = "button" class = "btn btn-primary">カテゴリーを選ぶ</a>
+            </div>
+            <div class = "col-md-2">
+                <a href = "{{ action('Admin\TodoController@index') }}" role = "button" class = "btn btn-primary">一覧へ</a></a>
             </div>
         </div>
         <div class="row">

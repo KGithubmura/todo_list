@@ -26,10 +26,11 @@ class TodoController extends Controller
         $this->validate($request, Todo::$rules);
         $todo = new Todo;
         $categories = new Category;
+    
         $form = $request->all();
         
         unset($form['_token']);
-        
+    $todo->category_name = 
         $todo->nowtime = Carbon::now();
         $todo->is_complete = 0;
         $todo->user_id = $user->id;
@@ -45,12 +46,14 @@ class TodoController extends Controller
     
     public function index(Request $request)
     {   
-        $categories = Category::find($request->id);
-        $is_coplete = 0;
+        $category = Category::all();
+        $category->name = "priority";
+        //dd($category);
+        $categories = optional(Category::find($request->id));
         $id = $categories->id;
+        $is_coplete = 0;
         $cond_title = $request->cond_title;
         $sort = $request->sort;
-        //$category_id = $request->category_id;
         $todoQuery = Todo::where('user_id', Auth::id());
         
         if ($cond_title != ''){
