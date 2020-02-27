@@ -19,12 +19,8 @@
                       <div class="col-md-10">
                         <select name="category_id">
                             <option value="0">選択無し</option>
-                            @foreach ($name as $key => $category)
-                                @if ($category->id == $key)
-                                    <option value="{{ $key }}" selected >{{ $category->name }}</option>
-                                @else 
-                                    <option value="{{ $key }}">{{ $category->name }}</option>
-                                @endif
+                            @foreach($name as $category)
+                            <option value="{{$category->id}}">{{ $category->name }}</option>
                             @endforeach
                         </select>
                       </div>
