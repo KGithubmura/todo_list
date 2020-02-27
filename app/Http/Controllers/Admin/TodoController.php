@@ -30,7 +30,7 @@ class TodoController extends Controller
         $form = $request->all();
         
         unset($form['_token']);
-    $todo->category_name = 
+        
         $todo->nowtime = Carbon::now();
         $todo->is_complete = 0;
         $todo->user_id = $user->id;
