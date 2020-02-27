@@ -18,7 +18,7 @@
               <label class="col-md-2">カテゴリー</label>
               <div class="col-md-10">
                 <select name="category_id">
-                    <option value="">選択してください</option>
+                    <option value="0">選択無し</option>
                     @foreach($name as $category)
                     <option value="{{$category->id}}">{{ $category->name }}</option>
                     @endforeach

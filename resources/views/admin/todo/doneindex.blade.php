@@ -53,9 +53,10 @@
                             @if($todo->is_complete == 1)
                                 <tr>
                                     <th>{{ $todo->id }}</th>
+                                    <td>{{ str_limit($todo->category->name) }}</td>
                                     <td>{{ str_limit($todo->title, 100) }}</td>
                                     <td>{{ str_limit($todo->nowtime) }}</td>
-                                    <th>{{ str_limit($todo->deadline_date) }}</th>
+                                    <td>{{ str_limit($todo->deadline_date) }}</td>
                                     <td>{{ str_limit($todo->priority) }}</td>
                                     <td>
                                         <div>

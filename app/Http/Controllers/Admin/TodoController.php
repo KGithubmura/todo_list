@@ -76,11 +76,12 @@ class TodoController extends Controller
     
     public function edit(Request $request)
     {
+        $categories = Category::all();
         $todo = Todo::find($request->id);
         if (empty($todo)) {
             abort(404);
         }
-        return view('admin.todo.edit',['todo_form' => $todo]);
+        return view('admin.todo.edit',['todo_form' => $todo, 'name' => $categories]);
     }
     
     public function update(Request $request)

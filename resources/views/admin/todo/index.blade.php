@@ -58,6 +58,7 @@
                         </thead>
                         <tbody>
                         @foreach($posts as $todo)
+                        @if($todo->is_complete == 0)
                             @if ($todo->deadline_date < $todo->nowtime )
                                 <tr class = "bg-danger">　
                             @else($todo->deadline_date > $todo->nowtime )
@@ -78,6 +79,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                        @endif
                         @endforeach
                         </tbody>
                     </table>
