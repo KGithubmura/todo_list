@@ -22,7 +22,7 @@ class CreateTodosTable extends Migration
             $table->Date('nowtime');
             $table->Integer('priority');
             
-            $table->Timestamps('');
+            $table->timestamps();
         });
     }
 
