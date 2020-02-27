@@ -20,7 +20,7 @@
                   <a href = "{{ action('Admin\TodoController@index',['id' => $category->id])}}" name="id" role = "button" class = "btn btn-primary alert-success">{{ $category->name }}</a>
                 </div>
                 <div class = "my-3">
-                    <a href="{{ action('Admin\TodoController@categoryEdit', ['id' => $category->id]) }}" class="text-white">編集</a>
+                    <a href="{{ action('Admin\TodoController@categoryEdit', ['id' => $category->id]) }}" class="text-dark">編集</a>
                 </div>
           @endforeach
           </div>
