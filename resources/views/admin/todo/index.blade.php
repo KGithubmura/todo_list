@@ -58,43 +58,26 @@
                         </thead>
                         <tbody>
                         @foreach($posts as $todo)
-                            @if($todo->is_complete == 0)
-                                @if ($todo->deadline_date < $todo->nowtime )
-                                    <tr class = "bg-danger">　
-                                        <th>{{ $todo->id }}</th>
-                                        <td>{{ str_limit($todo->category_id) }}</td>
-                                        <td>{{ str_limit($todo->title, 100) }}</td>
-                                        <td>{{ str_limit($todo->nowtime) }}</td>
-                                        <td>{{ str_limit($todo->deadline_date) }}</td>
-                                        <td>{{ str_limit($todo->priority) }}</td>
-                                        <td>
-                                            <div>
-                                                <a href="{{ action('Admin\TodoController@edit', ['id' => $todo->id]) }}">編集</a>
-                                            </div>
-                                            <div>
-                                                <a href="{{ action('Admin\TodoController@done',['id' => $todo->id]) }}">完了</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @else($todo->deadline_date > $todo->nowtime )
-                                   <tr>　
-                                        <th>{{ $todo->id }}</th>
-                                        <td>{{ str_limit($todo->category_id) }}</td>
-                                        <td>{{ str_limit($todo->title, 100) }}</td>
-                                        <td>{{ str_limit($todo->nowtime) }}</td>
-                                        <td>{{ str_limit($todo->deadline_date) }}</td>
-                                        <td>{{ str_limit($todo->priority) }}</td>
-                                        <td>
-                                            <div>
-                                                <a href="{{ action('Admin\TodoController@edit', ['id' => $todo->id]) }}">編集</a>
-                                            </div>
-                                            <div>
-                                                <a href="{{ action('Admin\TodoController@done',['id' => $todo->id]) }}">完了</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endif
+                            @if ($todo->deadline_date < $todo->nowtime )
+                                <tr class = "bg-danger">　
+                            @else($todo->deadline_date > $todo->nowtime )
+                                <tr>
                             @endif
+                                    <th>{{ $todo->id }}</th>
+                                    <td>{{ str_limit($todo->category->name) }}</td>
+                                    <td>{{ str_limit($todo->title, 100) }}</td>
+                                    <td>{{ str_limit($todo->nowtime) }}</td>
+                                    <td>{{ str_limit($todo->deadline_date) }}</td>
+                                    <td>{{ str_limit($todo->priority) }}</td>
+                                    <td>
+                                        <div>
+                                            <a href="{{ action('Admin\TodoController@edit', ['id' => $todo->id]) }}">編集</a>
+                                        </div>
+                                        <div>
+                                            <a href="{{ action('Admin\TodoController@done',['id' => $todo->id]) }}">完了</a>
+                                        </div>
+                                    </td>
+                                </tr>
                         @endforeach
                         </tbody>
                     </table>
