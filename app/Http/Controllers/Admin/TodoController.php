@@ -47,14 +47,14 @@ class TodoController extends Controller
     public function index(Request $request)
     {   
         $category = Category::all();
+        $todos = Todo::all();
         $category->name = "priority";
-        //dd($category);
         $categories = optional(Category::find($request->id));
         $id = $categories->id;
-        $is_coplete = 0;
         $cond_title = $request->cond_title;
         $sort = $request->sort;
         $todoQuery = Todo::where('user_id', Auth::id());
+        
         
         if ($cond_title != ''){
             $todoQuery->where('title', $cond_title);
@@ -70,7 +70,14 @@ class TodoController extends Controller
             $todoQuery->where('category_id', $id);
         } 
         
+        foreach ($todos as $todo) {
+            if($todo->is_complete == 0) {
+             $todoQuery->where('is_complete', 0);
+            }
+        }
+        
         $posts = $todoQuery->paginate(5);
+        
         return view('admin.todo.index', ['posts' => $posts, 'cond_title' => $cond_title,'sort' => $sort,'name' => $categories,'id =>$id']);
     }
     
@@ -101,29 +108,46 @@ class TodoController extends Controller
         $todo = Todo::find($request->id);
         $todo->is_complete = 1;
         $todo->save();
+        
         return redirect('admin/todo');
     }
     
     
     public function doneindex(Request $request)
     {
-        $is_complete = 1;
+        $todos = Todo::all();
+        $categories = optional(Category::find($request->id));
         $cond_title = $request->cond_title;
         $sort= $request->sort;
-        $posts = Todo::paginate(5);
+        $id = $categories->id;
+        $todoQuery = Todo::where('user_id', Auth::id());
+        
+        
         
         if ($cond_title != ''){
-            $posts = Todo::where('title', $cond_title)->get();
-            }
-        if ($sort != '') {
-            }if ($sort == 'asc') {
-            $posts = Todo::orderBy('priority' , 'asc')->paginate(5);
-            } elseif($sort == 'desc') {
-            $posts = Todo::orderBy('priority' , 'desc')->paginate(5);
+            $todoQuery->where('title', $cond_title);
         } 
-         
         
-        return view('admin.todo.doneindex', ['posts' => $posts, 'cond_title' => $cond_title,'sort' => $sort]);
+        if ($sort == 'asc') {
+            $todoQuery->orderBy('priority' , 'asc');
+        } elseif($sort == 'desc') {
+            $todoQuery->orderBy('priority' , 'desc');
+        } 
+        
+        if ($id != ''){
+            $todoQuery->where('category_id', $id);
+        } 
+        
+        foreach ($todos as $todo) {
+            if($todo->is_complete == 1) {
+             $todoQuery->where('is_complete', 1);
+            }
+        }
+        
+        $posts = $todoQuery->paginate(5);
+        
+        
+        return view('admin.todo.doneindex', ['posts' => $posts, 'cond_title' => $cond_title,'sort' => $sort,'id =>$id', 'name' => $categories]);
     }
     
     public function delete(Request $request)

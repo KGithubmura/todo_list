@@ -50,7 +50,6 @@
                         </thead>
                         <tbody>
                         @foreach($posts as $todo)
-                            @if($todo->is_complete == 1)
                                 <tr>
                                     <th>{{ $todo->id }}</th>
                                     <td>{{ str_limit($todo->category->name) }}</td>
@@ -67,7 +66,6 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endif
                         @endforeach
                         </tbody>
                     </table>
