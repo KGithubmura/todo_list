@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
-                <h2>リスト編集</h2>
+                <h2 class="text-dark">リスト編集</h2>
                 <form action="{{ action('Admin\TodoController@update') }}" method="post" enctype="multipart/form-data">
                     @if (count($errors) > 0)
                         <ul>
@@ -15,7 +15,7 @@
                         </ul>
                     @endif
                     <div class="form-group row">
-                      <label class="col-md-2">カテゴリー</label>
+                      <label class="col-md-2 text-dark">カテゴリー</label>
                       <div class="col-md-10">
                         <select name="category_id">
                             <option value="0">選択無し</option>
@@ -30,19 +30,19 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-2" for="title">タイトル</label>
+                        <label class="col-md-2 text-dark" for="title">タイトル</label>
                         <div class="col-md-10">
                             <input type="text" class="form-control" name="title" value="{{ $todo_form->title }}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-2">期限</label>
+                        <label class="col-md-2 text-dark">期限</label>
                         <div class="col-md-10">
                             <input type="text" name="deadline_date" step="300"　value="{{ $todo_form->deadline_date }}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-2">優先度</label>
+                        <label class="col-md-2 text-dark">優先度</label>
                         <div class="col-md-10">
                           <select name="priority">
                               <option value="">選択してください</option>

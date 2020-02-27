@@ -1,9 +1,14 @@
-body {
+body {background-image: url("http://gahag.net/img/201608/14s/gahag-0116043066-1.jpg"); 
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top;
   background-color: #000;
+  background-size: cover;
+  width: 100%;
+  opacity: 0.9;
+  
   color: #fff;
 }
+
 
 .navbar-laravel {
   background-color: #000;
